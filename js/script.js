@@ -1,62 +1,100 @@
-document.querySelector(".icon-menu").addEventListener("click", function (event) {
-  event.preventDefault();
-  document.body.classList.toggle("menu-open");
+// Mobile menu functionality
+const iconMenu = document.querySelector('.icon-menu');
+const menuBody = document.querySelector('.menu__body');
+const wrapper = document.querySelector('.wrapper');
+
+if (iconMenu) {
+  iconMenu.addEventListener('click', function() {
+    document.body.classList.toggle('menu-open');
+    iconMenu.classList.toggle('active');
+    wrapper.classList.toggle('lock');
+  });
+}
+
+// Close menu when clicking on menu items
+const menuLinks = document.querySelectorAll('.menu__link');
+menuLinks.forEach(link => {
+  link.addEventListener('click', function() {
+    if (document.body.classList.contains('menu-open')) {
+      document.body.classList.remove('menu-open');
+      iconMenu.classList.remove('active');
+      wrapper.classList.remove('lock');
+    }
+  });
+});
+
+// Back to top button functionality
+const backToTopButton = document.querySelector('.back-to-top');
+
+window.addEventListener('scroll', () => {
+  if (window.pageYOffset > 300) {
+    backToTopButton.classList.add('show');
+  } else {
+    backToTopButton.classList.remove('show');
+  }
+});
+
+backToTopButton.addEventListener('click', (e) => {
+  e.preventDefault();
+  window.scrollTo({
+    top: 0,
+    behavior: 'smooth'
+  });
 });
 
 // Theme switcher functionality
-const themeSwitcher = document.querySelector(".theme-switcher");
-const themeIcon = document.querySelector(".theme-icon");
-let isDarkTheme = true; // Start with dark theme by default
+const themeSwitcher = document.querySelector('.theme-switcher');
+const themeIcon = document.querySelector('.theme-icon');
+const prefersDarkScheme = window.matchMedia('(prefers-color-scheme: dark)');
 
-if (themeSwitcher) {
-  themeSwitcher.addEventListener("click", function() {
-    isDarkTheme = !isDarkTheme;
-    
-    if (isDarkTheme) {
-      document.body.style.backgroundColor = "#000000";
-      document.body.style.color = "#ffffff";
-      document.querySelector(".header").style.backgroundColor = "#000000";
-    } else {
-      document.body.style.backgroundColor = "#ffffff";
-      document.body.style.color = "#000000";
-      document.querySelector(".header").style.backgroundColor = "#ffffff";
-    }
-    
-    // Update menu links color
-    const menuLinks = document.querySelectorAll(".menu__link:not(.menu__link_active)");
-    menuLinks.forEach(link => {
-      link.style.color = isDarkTheme ? "#ffffff" : "#000000";
-    });
-    
-    // Could add animation or icon swap here
-  });
+// Check for saved theme preference or use system preference
+const currentTheme = localStorage.getItem('theme') || 
+                    (prefersDarkScheme.matches ? 'dark' : 'light');
+
+// Apply the current theme
+document.body.classList.toggle('light-theme', currentTheme === 'light');
+updateThemeIcon(currentTheme);
+
+themeSwitcher.addEventListener('click', () => {
+  const newTheme = document.body.classList.contains('light-theme') ? 'dark' : 'light';
+  document.body.classList.toggle('light-theme');
+  localStorage.setItem('theme', newTheme);
+  updateThemeIcon(newTheme);
+});
+
+function updateThemeIcon(theme) {
+  themeIcon.src = theme === 'dark' ? 
+    'img/portfolio/moon-icon.svg' : 
+    'img/portfolio/sun-icon.svg';
 }
 
-// Back to top button functionality
-const backToTopButton = document.querySelector(".back-to-top");
+// Handle system theme changes
+prefersDarkScheme.addEventListener('change', (e) => {
+  const newTheme = e.matches ? 'dark' : 'light';
+  if (!localStorage.getItem('theme')) {
+    document.body.classList.toggle('light-theme', newTheme === 'light');
+    updateThemeIcon(newTheme);
+  }
+});
 
-if (backToTopButton) {
-  backToTopButton.addEventListener("click", function(e) {
+// Portfolio image loading optimization
+const portfolioImages = document.querySelectorAll('.portfolio__item img');
+portfolioImages.forEach(img => {
+  img.loading = 'lazy';
+});
+
+// Smooth scroll for anchor links
+document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+  anchor.addEventListener('click', function (e) {
     e.preventDefault();
-    window.scrollTo({
-      top: 0,
-      behavior: "smooth"
-    });
-  });
-  
-  // Show/hide button based on scroll position
-  window.addEventListener("scroll", function() {
-    if (window.scrollY > 300) {
-      backToTopButton.style.opacity = "1";
-    } else {
-      backToTopButton.style.opacity = "0";
+    const target = document.querySelector(this.getAttribute('href'));
+    if (target) {
+      target.scrollIntoView({
+        behavior: 'smooth'
+      });
     }
   });
-  
-  // Initialize button state
-  backToTopButton.style.opacity = window.scrollY > 300 ? "1" : "0";
-  backToTopButton.style.transition = "opacity 0.3s ease";
-}
+});
 
 const spollerButtons = document.querySelectorAll("[data-spoller] .spollers-faq__button");
 

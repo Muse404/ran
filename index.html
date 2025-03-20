@@ -4,6 +4,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Portfolio of RAN - Showcasing creative works in design and visual arts" />
   <link rel="icon" type="image/png" href="img/favicon.png" />
   <title>PORTFOLIO | 林小然 RAN</title>
   <link rel="stylesheet" href="css/style.css" />
@@ -13,27 +14,41 @@
   <div class="wrapper">
     <header class="header">
       <div class="header__container">
-        <a href="index.html" class="header__logo logo">林小然 RAN</a>
+        <a href="index.html" class="header__logo logo" aria-label="Home">林小然 RAN</a>
         <div class="header__navigation">
           <div class="header__menu menu">
+            <button type="button" class="menu__icon icon-menu" aria-label="Toggle menu">
+              <span></span>
+            </button>
             <nav class="menu__body">
               <ul class="menu__list">
-                <li class="menu__item"><a href="index.html" class="menu__link menu__link_active">Work</a></li>
-                <li class="menu__item"><a href="about.html" class="menu__link">About</a></li>
-                <li class="menu__item"><a href="contact.html" class="menu__link">Contact</a></li>
+                <li class="menu__item">
+                  <a href="index.html" class="menu__link menu__link_active" aria-current="page">Work</a>
+                </li>
+                <li class="menu__item">
+                  <a href="about.html" class="menu__link">About</a>
+                </li>
+                <li class="menu__item">
+                  <a href="contact.html" class="menu__link">Contact</a>
+                </li>
               </ul>
             </nav>
           </div>
           <div class="header__actions actions-header">
-            <div class="theme-switcher">
-              <img src="img/portfolio/moon-icon.svg" alt="Dark Mode" class="theme-icon">
-            </div>
+            <button type="button" class="theme-switcher" aria-label="Toggle dark/light theme">
+              <img src="img/portfolio/moon-icon.svg" alt="Theme icon" class="theme-icon">
+            </button>
             <div class="social-icons">
-              <a href="#" class="social-icon"><img src="img/portfolio/social-icon-1.svg" alt="Social"></a>
-              <a href="#" class="social-icon"><img src="img/portfolio/social-icon-2.svg" alt="Social"></a>
-              <a href="#" class="social-icon"><img src="img/portfolio/social-icon-3-1.svg" alt="Social"></a>
+              <a href="#" class="social-icon" aria-label="Social link 1">
+                <img src="img/portfolio/social-icon-1.svg" alt="Social">
+              </a>
+              <a href="#" class="social-icon" aria-label="Social link 2">
+                <img src="img/portfolio/social-icon-2.svg" alt="Social">
+              </a>
+              <a href="#" class="social-icon" aria-label="Social link 3">
+                <img src="img/portfolio/social-icon-3-1.svg" alt="Social">
+              </a>
             </div>
-            <button type="button" class="menu__icon icon-menu"><span></span></button>
           </div>
         </div>
       </div>
@@ -44,7 +59,7 @@
           <div class="portfolio__grid">
             <div class="portfolio__item">
               <a href="project/detail/cloud-node.html">
-                <img src="img/portfolio/portfolio-1.jpg" alt="Portfolio Work">
+                <img src="img/portfolio/portfolio-1.jpg" alt="Cloud Node Product Visual" loading="lazy">
                 <div class="portfolio__overlay">
                   <h3 class="portfolio__title">Cloud Node Product Visual</h3>
                 </div>
@@ -52,7 +67,7 @@
             </div>
             <div class="portfolio__item">
               <a href="project/detail/one-point.html">
-                <img src="img/portfolio/portfolio-2.jpg" alt="Portfolio Work">
+                <img src="img/portfolio/portfolio-2.jpg" alt="One Point Universe Product Visual" loading="lazy">
                 <div class="portfolio__overlay">
                   <h3 class="portfolio__title">One Point Universe Product Visual</h3>
                 </div>
@@ -60,17 +75,17 @@
             </div>
             <div class="portfolio__item">
               <a href="project/detail/good-domain.html">
-                <img src="img/portfolio/portfolio-3.jpg" alt="Portfolio Work">
+                <img src="img/portfolio/portfolio-3.jpg" alt="Good Domain Product Visual" loading="lazy">
                 <div class="portfolio__overlay">
                   <h3 class="portfolio__title">Good Domain Product Visual</h3>
                 </div>
               </a>
             </div>
             <div class="portfolio__item">
-              <a href="project/detail">
-                <img src="img/portfolio/portfolio-4.jpg" alt="Portfolio Work">
+              <a href="project/detail/e-space.html">
+                <img src="img/portfolio/portfolio-4.jpg" alt="E-Space Website Visual">
                 <div class="portfolio__overlay">
-                  <h3 class="portfolio__title">Editorial Design</h3>
+                  <h3 class="portfolio__title">e-space 官网视觉</h3>
                 </div>
               </a>
             </div>
@@ -173,8 +188,8 @@
           </div>
         </div>
       </section>
-      <a href="#" class="back-to-top">
-        <img src="img/portfolio/back-to-top.svg" alt="Back to Top">
+      <a href="#" class="back-to-top" aria-label="Back to top">
+        <img src="img/portfolio/back-to-top.svg" alt="Back to top">
       </a>
     </main>
     <footer class="footer footer_portfolio">
