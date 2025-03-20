@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="zh" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="林小然的个人作品集网站 - RAN's Portfolio">
+    <title>页面标题 - 林小然的个人网站</title>
+    <!-- Tailwind CSS via CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Font Awesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script>
+        // Tailwind Configuration
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    animation: {
+                        'fade-in': 'fadeIn 0.7s ease-in-out',
+                    },
+                    keyframes: {
+                        fadeIn: {
+                            '0%': { opacity: '0' },
+                            '100%': { opacity: '1' },
+                        }
+                    },
+                    transitionProperty: {
+                        'height': 'height',
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        /* Custom animations and styles */
+        .image-hover {
+            transition: transform 0.3s ease;
+        }
+        .image-hover:hover {
+            transform: scale(1.02);
+        }
+        
+        html {
+            scroll-behavior: smooth;
+        }
+        
+        /* Custom loader for images */
+        .loader {
+            width: 48px;
+            height: 48px;
+            border: 5px solid #FFF;
+            border-bottom-color: transparent;
+            border-radius: 50%;
+            display: inline-block;
+            box-sizing: border-box;
+            animation: rotation 1s linear infinite;
+        }
+
+        @keyframes rotation {
+            0% {
+                transform: rotate(0deg);
+            }
+            100% {
+                transform: rotate(360deg);
+            }
+        }
+    </style>
+</head>
+<body class="bg-gray-50 text-gray-900 dark:bg-gray-900 dark:text-gray-100 transition-colors duration-300">
+    <!-- Header -->
+    <header class="fixed w-full bg-white bg-opacity-90 dark:bg-gray-900 dark:bg-opacity-90 backdrop-blur-sm z-50 transition-colors duration-300 shadow-md">
+        <div class="container mx-auto px-4 py-4 flex justify-between items-center">
+            <a href="/" class="text-xl font-bold">林小然 RAN</a>
+            <nav class="hidden md:flex space-x-8">
+                <a href="/work" class="hover:text-blue-600 dark:hover:text-blue-400 transition-colors duration-200">Work</a>
+                <a href="/about" class="hover:text-blue-600 dark:hover:text-blue-400 transition-colors duration-200">About</a>
+                <a href="/contact" class="hover:text-blue-600 dark:hover:text-blue-400 transition-colors duration-200">Contact</a>
+            </nav>
+            <div class="flex items-center space-x-4">
+                <!-- Theme switcher -->
+                <button id="theme-toggle" class="p-2 rounded-full hover:bg-gray-200 dark:hover:bg-gray-700 transition-colors duration-200">
+                    <i class="fas fa-moon text-gray-700 dark:hidden"></i>
+                    <i class="fas fa-sun text-yellow-300 hidden dark:block"></i>
+                </button>
+                <!-- Mobile menu button -->
+                <button id="mobile-menu-button" class="md:hidden p-2 rounded-lg hover:bg-gray-200 dark:hover:bg-gray-700 transition-colors duration-200">
+                    <i class="fas fa-bars"></i>
+                </button>
+            </div>
+        </div>
+        <!-- Mobile menu -->
+        <div id="mobile-menu" class="md:hidden bg-white dark:bg-gray-900 hidden transition-all duration-300 ease-in-out">
+            <nav class="container mx-auto px-4 py-4 flex flex-col space-y-4">
+                <a href="/work" class="py-2 hover:text-blue-600 dark:hover:text-blue-400 transition-colors duration-200">Work</a>
+                <a href="/about" class="py-2 hover:text-blue-600 dark:hover:text-blue-400 transition-colors duration-200">About</a>
+                <a href="/contact" class="py-2 hover:text-blue-600 dark:hover:text-blue-400 transition-colors duration-200">Contact</a>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Main content -->
+    <main class="container mx-auto px-4 sm:px-6 lg:px-8 pt-28 pb-16 animate-fade-in">
+        <!-- Main content goes here -->
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-gray-100 dark:bg-gray-800 transition-colors duration-300">
+        <div class="container mx-auto px-4 py-8">
+            <p class="text-center text-gray-700 dark:text-gray-300 transition-colors duration-300">
+                &copy; 2024 林小然. All rights reserved.
+            </p>
+        </div>
+    </footer>
+
+    <!-- Back to top button -->
+    <button id="back-to-top" class="fixed bottom-8 right-8 bg-gray-800 dark:bg-gray-600 text-white p-3 rounded-full shadow-lg opacity-0 invisible transition-all duration-300 hover:bg-gray-700 dark:hover:bg-gray-500">
+        <i class="fas fa-arrow-up"></i>
+    </button>
+
+    <!-- JavaScript -->
+    <script>
+        // Theme toggler
+        const themeToggle = document.getElementById('theme-toggle');
+        
+        // Check for system preference and saved preference
+        const prefersDarkMode = window.matchMedia('(prefers-color-scheme: dark)').matches;
+        const savedTheme = localStorage.getItem('theme');
+        
+        // Apply theme based on saved preference or system preference
+        if (savedTheme === 'dark' || (!savedTheme && prefersDarkMode)) {
+            document.documentElement.classList.add('dark');
+        } else {
+            document.documentElement.classList.remove('dark');
+        }
+        
+        // Toggle theme when button is clicked
+        themeToggle.addEventListener('click', () => {
+            document.documentElement.classList.toggle('dark');
+            const isDarkMode = document.documentElement.classList.contains('dark');
+            localStorage.setItem('theme', isDarkMode ? 'dark' : 'light');
+        });
+        
+        // Mobile menu toggle
+        const mobileMenuButton = document.getElementById('mobile-menu-button');
+        const mobileMenu = document.getElementById('mobile-menu');
+        
+        mobileMenuButton.addEventListener('click', () => {
+            mobileMenu.classList.toggle('hidden');
+        });
+        
+        // Back to top button
+        const backToTopButton = document.getElementById('back-to-top');
+        
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 300) {
+                backToTopButton.classList.remove('opacity-0', 'invisible');
+                backToTopButton.classList.add('opacity-100', 'visible');
+            } else {
+                backToTopButton.classList.add('opacity-0', 'invisible');
+                backToTopButton.classList.remove('opacity-100', 'visible');
+            }
+        });
+        
+        backToTopButton.addEventListener('click', () => {
+            window.scrollTo({
+                top: 0,
+                behavior: 'smooth'
+            });
+        });
+        
+        // Lazy loading with animation
+        document.addEventListener('DOMContentLoaded', () => {
+            const lazyImages = document.querySelectorAll('.lazy-load');
+            
+            const lazyLoadObserver = new IntersectionObserver((entries, observer) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        const img = entry.target;
+                        img.classList.add('animate-fade-in');
+                        observer.unobserve(img);
+                    }
+                });
+            }, { rootMargin: '100px' });
+            
+            lazyImages.forEach(image => {
+                lazyLoadObserver.observe(image);
+            });
+        });
+    </script>
+</body>
+</html> 
