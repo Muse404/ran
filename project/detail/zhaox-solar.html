@@ -1,340 +1,70 @@
 <!DOCTYPE html>
-<html lang="zh" class="scroll-smooth">
+<html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>朝昔 节气视觉 - 林小然的个人网站</title>
-    <!-- Tailwind CSS via CDN -->
-    <script src="https://cdn.tailwindcss.com"></script>
-    <!-- Font Awesome Icons -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <script>
-        // Tailwind Configuration
-        tailwind.config = {
-            darkMode: 'class',
-            theme: {
-                extend: {
-                    animation: {
-                        'fade-in': 'fadeIn 0.7s ease-in-out',
-                    },
-                    keyframes: {
-                        fadeIn: {
-                            '0%': { opacity: '0' },
-                            '100%': { opacity: '1' },
-                        }
-                    },
-                    transitionProperty: {
-                        'height': 'height',
-                    }
-                }
-            }
-        }
-    </script>
-    <style>
-        /* Custom styles for image hover effect */
-        .image-hover {
-            transition: transform 0.3s ease;
-        }
-        .image-hover:hover {
-            transform: scale(1.02);
-        }
-        
-        /* Ensure transitions are smooth even in Firefox */
-        html {
-            scroll-behavior: smooth;
-        }
-        
-        /* Custom loader for images */
-        .loader {
-            width: 48px;
-            height: 48px;
-            border: 5px solid #FFF;
-            border-bottom-color: transparent;
-            border-radius: 50%;
-            display: inline-block;
-            box-sizing: border-box;
-            animation: rotation 1s linear infinite;
-        }
-
-        @keyframes rotation {
-            0% {
-                transform: rotate(0deg);
-            }
-            100% {
-                transform: rotate(360deg);
-            }
-        }
-    </style>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="icon" type="image/png" href="../../img/favicon.png" />
+  <title>朝昔 节气视觉 | 林小然 RAN</title>
+  <link rel="stylesheet" href="../../css/style.css" />
 </head>
-<body class="bg-gray-50 text-gray-900 dark:bg-gray-900 dark:text-gray-100 transition-colors duration-300">
-    <!-- Header -->
-    <header class="fixed w-full bg-white bg-opacity-90 dark:bg-gray-900 dark:bg-opacity-90 backdrop-blur-sm z-50 transition-colors duration-300 shadow-md">
-        <div class="container mx-auto px-4 py-4 flex justify-between items-center">
-            <a href="/" class="text-xl font-bold">林小然 RAN</a>
-            <nav class="hidden md:flex space-x-8">
-                <a href="/work" class="hover:text-blue-600 dark:hover:text-blue-400 transition-colors duration-200">Work</a>
-                <a href="/about" class="hover:text-blue-600 dark:hover:text-blue-400 transition-colors duration-200">About</a>
-                <a href="/contact" class="hover:text-blue-600 dark:hover:text-blue-400 transition-colors duration-200">Contact</a>
-            </nav>
-            <div class="flex items-center space-x-4">
-                <!-- Theme switcher -->
-                <button id="theme-toggle" class="p-2 rounded-full hover:bg-gray-200 dark:hover:bg-gray-700 transition-colors duration-200">
-                    <i class="fas fa-moon text-gray-700 dark:hidden"></i>
-                    <i class="fas fa-sun text-yellow-300 hidden dark:block"></i>
-                </button>
-                <!-- Mobile menu button -->
-                <button id="mobile-menu-button" class="md:hidden p-2 rounded-lg hover:bg-gray-200 dark:hover:bg-gray-700 transition-colors duration-200">
-                    <i class="fas fa-bars"></i>
-                </button>
-            </div>
-        </div>
-        <!-- Mobile menu -->
-        <div id="mobile-menu" class="md:hidden bg-white dark:bg-gray-900 hidden transition-all duration-300 ease-in-out">
-            <nav class="container mx-auto px-4 py-4 flex flex-col space-y-4">
-                <a href="/work" class="py-2 hover:text-blue-600 dark:hover:text-blue-400 transition-colors duration-200">Work</a>
-                <a href="/about" class="py-2 hover:text-blue-600 dark:hover:text-blue-400 transition-colors duration-200">About</a>
-                <a href="/contact" class="py-2 hover:text-blue-600 dark:hover:text-blue-400 transition-colors duration-200">Contact</a>
-            </nav>
-        </div>
+<body>
+  <div class="wrapper">
+    <header class="header">
+      <div class="header__container">
+        <a href="../../index.html" class="header__logo logo" aria-label="Home">林小然 RAN</a>
+        <nav class="header__navigation">
+          <ul class="menu__list">
+            <li class="menu__item"><a href="../../index.html" class="menu__link menu__link_active">Work</a></li>
+            <li class="menu__item"><a href="../../about.html" class="menu__link">About</a></li>
+          </ul>
+        </nav>
+      </div>
     </header>
 
-    <!-- Main content -->
-    <main class="container mx-auto px-4 sm:px-6 lg:px-8 pt-28 pb-16 animate-fade-in">
-        <section class="max-w-6xl mx-auto">
-            <h1 class="text-4xl sm:text-5xl font-bold mb-6 animate-fade-in">朝昔 节气视觉</h1>
-            <p class="text-lg text-gray-700 dark:text-gray-300 mb-12 max-w-3xl animate-fade-in transition-colors duration-300">
-                朝昔是一个以中国传统二十四节气为主题的视觉设计项目。通过现代设计语言诠释传统节气文化，展现节气之美，传递节气文化。每个节气都有其独特的自然特征和文化内涵，项目通过精心设计的视觉元素，将这些特征和内涵以现代审美呈现。
-            </p>
-
-            <!-- Project cover image -->
-            <div class="mb-16 rounded-lg overflow-hidden shadow-lg animate-fade-in">
-                <img 
-                    src="images/zhaox-cover.jpg" 
-                    alt="朝昔项目封面" 
-                    class="w-full h-auto lazy-load"
-                    loading="lazy"
-                >
+    <main class="page">
+      <section class="project-detail">
+        <div class="project-detail__container">
+          <div class="project-detail__header">
+            <h1 class="project-detail__title">朝昔节气视觉</h1>
+            <div class="project-detail__description">
+              <p>用于物业产品线上情感化视觉，提升用户体验</p>
             </div>
+          </div>
+          
+          <div class="project-detail__image">
+            <img src="../../img/朝昔 节气视觉/朝昔 节气视觉 cover1.png" alt="朝昔 节气视觉 - 主视觉设计">
+          </div>
 
-            <!-- Image grid - 2 columns -->
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-8 mb-16 animate-fade-in">
-                <div class="rounded-lg overflow-hidden shadow-lg">
-                    <img 
-                        src="images/zhaox-1.jpg" 
-                        alt="节气视觉设计1" 
-                        class="w-full h-auto image-hover lazy-load"
-                        loading="lazy"
-                    >
-                </div>
-                <div class="rounded-lg overflow-hidden shadow-lg">
-                    <img 
-                        src="images/zhaox-2.jpg" 
-                        alt="节气视觉设计2" 
-                        class="w-full h-auto image-hover lazy-load"
-                        loading="lazy"
-                    >
-                </div>
-                <div class="rounded-lg overflow-hidden shadow-lg">
-                    <img 
-                        src="images/zhaox-3.jpg" 
-                        alt="节气视觉设计3" 
-                        class="w-full h-auto image-hover lazy-load"
-                        loading="lazy"
-                    >
-                </div>
-                <div class="rounded-lg overflow-hidden shadow-lg">
-                    <img 
-                        src="images/zhaox-4.jpg" 
-                        alt="节气视觉设计4" 
-                        class="w-full h-auto image-hover lazy-load"
-                        loading="lazy"
-                    >
-                </div>
-            </div>
+          <div class="project-detail__section">
+            <h3 class="project-detail__section-title">画面展示</h3>
+          </div>
+          
+          <div class="project-detail__image">
+            <img src="../../img/朝昔 节气视觉/画面展示1.png" alt="朝昔 节气视觉 - 画面展示1">
+          </div>
 
-            <!-- Full width image -->
-            <div class="mb-16 rounded-lg overflow-hidden shadow-lg animate-fade-in">
-                <img 
-                    src="images/zhaox-5.jpg" 
-                    alt="节气视觉设计5" 
-                    class="w-full h-auto lazy-load"
-                    loading="lazy"
-                >
-            </div>
+          <div class="project-detail__section">
+            <h3 class="project-detail__section-title">部分动图展示</h3>
+          </div>
 
-            <!-- Image grid - 2 columns -->
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-8 mb-16 animate-fade-in">
-                <div class="rounded-lg overflow-hidden shadow-lg">
-                    <img 
-                        src="images/zhaox-6.jpg" 
-                        alt="节气视觉设计6" 
-                        class="w-full h-auto image-hover lazy-load"
-                        loading="lazy"
-                    >
-                </div>
-                <div class="rounded-lg overflow-hidden shadow-lg">
-                    <img 
-                        src="images/zhaox-7.jpg" 
-                        alt="节气视觉设计7" 
-                        class="w-full h-auto image-hover lazy-load"
-                        loading="lazy"
-                    >
-                </div>
-                <div class="rounded-lg overflow-hidden shadow-lg">
-                    <img 
-                        src="images/zhaox-8.jpg" 
-                        alt="节气视觉设计8" 
-                        class="w-full h-auto image-hover lazy-load"
-                        loading="lazy"
-                    >
-                </div>
-                <div class="rounded-lg overflow-hidden shadow-lg">
-                    <img 
-                        src="images/zhaox-9.jpg" 
-                        alt="节气视觉设计9" 
-                        class="w-full h-auto image-hover lazy-load"
-                        loading="lazy"
-                    >
-                </div>
-            </div>
-
-            <!-- Full width images -->
-            <div class="mb-16 space-y-8 animate-fade-in">
-                <div class="rounded-lg overflow-hidden shadow-lg">
-                    <img 
-                        src="images/zhaox-10.jpg" 
-                        alt="节气视觉设计10" 
-                        class="w-full h-auto lazy-load"
-                        loading="lazy"
-                    >
-                </div>
-                <div class="rounded-lg overflow-hidden shadow-lg">
-                    <img 
-                        src="images/zhaox-11.jpg" 
-                        alt="节气视觉设计11" 
-                        class="w-full h-auto lazy-load"
-                        loading="lazy"
-                    >
-                </div>
-            </div>
-
-            <!-- Image grid - 2 columns -->
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-8 mb-16 animate-fade-in">
-                <div class="rounded-lg overflow-hidden shadow-lg">
-                    <img 
-                        src="images/zhaox-12.jpg" 
-                        alt="节气视觉设计12" 
-                        class="w-full h-auto image-hover lazy-load"
-                        loading="lazy"
-                    >
-                </div>
-                <div class="rounded-lg overflow-hidden shadow-lg">
-                    <img 
-                        src="images/zhaox-13.jpg" 
-                        alt="节气视觉设计13" 
-                        class="w-full h-auto image-hover lazy-load"
-                        loading="lazy"
-                    >
-                </div>
-            </div>
-
-            <!-- Animation section -->
-            <div class="mb-16 animate-fade-in">
-                <div class="rounded-lg overflow-hidden shadow-lg">
-                    <img 
-                        src="images/zhaox-animation.jpg" 
-                        alt="节气动画设计" 
-                        class="w-full h-auto lazy-load"
-                        loading="lazy"
-                    >
-                </div>
-            </div>
-        </section>
+          <div class="project-detail__image">
+            <img src="../../img/朝昔 节气视觉/部分动图展示1.png" alt="朝昔 节气视觉 - 动图展示">
+          </div>
+          
+        </div>
+      </section>
+      
+      <a href="#" class="back-to-top">
+        <img src="../../img/portfolio/back-to-top.svg" alt="Back to Top">
+      </a>
     </main>
 
-    <!-- Footer -->
-    <footer class="bg-gray-100 dark:bg-gray-800 transition-colors duration-300">
-        <div class="container mx-auto px-4 py-8">
-            <p class="text-center text-gray-700 dark:text-gray-300 transition-colors duration-300">
-                &copy; 2024 林小然. All rights reserved.
-            </p>
-        </div>
+    <footer class="footer footer_portfolio">
+      <div class="footer__container">
+        <div class="footer__copyright">All works © fjzfqbs 2025. | Please do not use or reproduce any content without the expressed written consent of RAN.</div>
+      </div>
     </footer>
-
-    <!-- Back to top button -->
-    <button id="back-to-top" class="fixed bottom-8 right-8 bg-gray-800 dark:bg-gray-600 text-white p-3 rounded-full shadow-lg opacity-0 invisible transition-all duration-300 hover:bg-gray-700 dark:hover:bg-gray-500">
-        <i class="fas fa-arrow-up"></i>
-    </button>
-
-    <!-- JavaScript -->
-    <script>
-        // Theme toggler
-        const themeToggle = document.getElementById('theme-toggle');
-        
-        // Check for system preference and saved preference
-        const prefersDarkMode = window.matchMedia('(prefers-color-scheme: dark)').matches;
-        const savedTheme = localStorage.getItem('theme');
-        
-        // Apply theme based on saved preference or system preference
-        if (savedTheme === 'dark' || (!savedTheme && prefersDarkMode)) {
-            document.documentElement.classList.add('dark');
-        } else {
-            document.documentElement.classList.remove('dark');
-        }
-        
-        // Toggle theme when button is clicked
-        themeToggle.addEventListener('click', () => {
-            document.documentElement.classList.toggle('dark');
-            const isDarkMode = document.documentElement.classList.contains('dark');
-            localStorage.setItem('theme', isDarkMode ? 'dark' : 'light');
-        });
-        
-        // Mobile menu toggle
-        const mobileMenuButton = document.getElementById('mobile-menu-button');
-        const mobileMenu = document.getElementById('mobile-menu');
-        
-        mobileMenuButton.addEventListener('click', () => {
-            mobileMenu.classList.toggle('hidden');
-        });
-        
-        // Back to top button
-        const backToTopButton = document.getElementById('back-to-top');
-        
-        window.addEventListener('scroll', () => {
-            if (window.scrollY > 300) {
-                backToTopButton.classList.remove('opacity-0', 'invisible');
-                backToTopButton.classList.add('opacity-100', 'visible');
-            } else {
-                backToTopButton.classList.add('opacity-0', 'invisible');
-                backToTopButton.classList.remove('opacity-100', 'visible');
-            }
-        });
-        
-        backToTopButton.addEventListener('click', () => {
-            window.scrollTo({
-                top: 0,
-                behavior: 'smooth'
-            });
-        });
-        
-        // Lazy loading with animation
-        document.addEventListener('DOMContentLoaded', () => {
-            const lazyImages = document.querySelectorAll('.lazy-load');
-            
-            const lazyLoadObserver = new IntersectionObserver((entries, observer) => {
-                entries.forEach(entry => {
-                    if (entry.isIntersecting) {
-                        const img = entry.target;
-                        img.classList.add('animate-fade-in');
-                        observer.unobserve(img);
-                    }
-                });
-            }, { rootMargin: '100px' });
-            
-            lazyImages.forEach(image => {
-                lazyLoadObserver.observe(image);
-            });
-        });
-    </script>
+  </div>
+  <script src="../../js/script.js"></script>
 </body>
 </html> 
