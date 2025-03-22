@@ -275,6 +275,11 @@ body {
     width: 50px;
     height: 50px;
   }
+  
+  .back-to-top svg {
+    width: 16px;
+    height: 16px;
+  }
 }
 
 @media (max-width: 576px) {
@@ -298,8 +303,13 @@ body {
   .back-to-top {
     bottom: 15px;
     right: 15px;
-    width: 45px;
-    height: 45px;
+    width: 40px;
+    height: 40px;
+  }
+  
+  .back-to-top svg {
+    width: 14px;
+    height: 14px;
   }
 }
 
@@ -312,6 +322,18 @@ body {
   
   .header__logo {
     margin-bottom: 5px;
+  }
+  
+  .back-to-top {
+    bottom: 10px;
+    right: 10px;
+    width: 35px;
+    height: 35px;
+  }
+  
+  .back-to-top svg {
+    width: 12px;
+    height: 12px;
   }
 }
 
@@ -488,7 +510,6 @@ body {
 /* *****************HOME**************** */
 
 .main {
-  background: url("../img/home/background_placeholder.png") center / cover no-repeat;
   min-height: 100vh;
 }
 
@@ -540,7 +561,6 @@ body {
 /* ************ABOUT**************** */
 
 .main_about {
-  background: url("../img/about/background_placeholder.png") center / cover no-repeat;
 }
 
 .about__container {
@@ -587,7 +607,6 @@ body {
 /* **************SERVICES**************** */
 
 .main_services {
-  background: url("../img/services/background_placeholder.png") center / cover no-repeat;
 }
 
 .services {
@@ -818,7 +837,6 @@ body {
 /* ****************CONTACT PAGE****************/
 
 .main_contact {
-  background: url("../img/contact/background_placeholder.png") center / cover no-repeat;
 }
 
 .contact__container {
@@ -2022,8 +2040,8 @@ body {
 }
 
 .back-to-top svg {
-  width: 24px;
-  height: 24px;
+  width: 18px;
+  height: 18px;
 }
 
 .back-to-top path {
