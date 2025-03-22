@@ -81,6 +81,9 @@ document.addEventListener('DOMContentLoaded', function() {
       }
     }
   }
+
+  // Media protection - prevent downloading and unauthorized use
+  applyMediaProtection();
 });
 
 // Back to top button functionality
@@ -101,6 +104,96 @@ if (backToTopButton) {
       backToTopButton.style.opacity = '1';
     } else {
       backToTopButton.style.opacity = '0';
+    }
+  });
+}
+
+/**
+ * Apply protection measures to all images and videos on the page
+ * - Prevents right-click downloads
+ * - Disables drag-and-drop 
+ * - Adds watermark class for CSS protection
+ * - Uses CSS pointer-events to prevent saving
+ */
+function applyMediaProtection() {
+  // 1. Prevent right-click context menu on media elements
+  document.addEventListener('contextmenu', function(e) {
+    if (e.target.tagName === 'IMG' || e.target.tagName === 'VIDEO') {
+      e.preventDefault();
+      return false;
+    }
+  });
+
+  // 2. Disable drag-and-drop for all media elements
+  const allImages = document.querySelectorAll('img');
+  const allVideos = document.querySelectorAll('video');
+
+  // Process images
+  allImages.forEach(img => {
+    // Prevent dragging
+    img.setAttribute('draggable', 'false');
+    // Add protect class for CSS
+    img.classList.add('protected-media');
+    // Disable saving image
+    img.addEventListener('mousedown', function(e) {
+      if (e.button === 2) { // Right click
+        e.preventDefault();
+      }
+    });
+  });
+
+  // Process videos
+  allVideos.forEach(video => {
+    // Prevent dragging
+    video.setAttribute('draggable', 'false');
+    // Add protect class for CSS
+    video.classList.add('protected-media');
+    // Disable controls by default to prevent download button
+    if (!video.hasAttribute('controls')) {
+      video.setAttribute('controlslist', 'nodownload');
+    }
+    // Add event listener to prevent right-click
+    video.addEventListener('mousedown', function(e) {
+      if (e.button === 2) { // Right click
+        e.preventDefault();
+      }
+    });
+  });
+
+  // 3. Disable keyboard shortcuts commonly used for saving media
+  document.addEventListener('keydown', function(e) {
+    // Ctrl+S, Ctrl+U, Ctrl+Shift+I, F12
+    if (
+      (e.ctrlKey && (e.key === 's' || e.key === 'S' || e.key === 'u' || e.key === 'U')) ||
+      (e.ctrlKey && e.shiftKey && (e.key === 'i' || e.key === 'I')) ||
+      e.key === 'F12'
+    ) {
+      e.preventDefault();
+      return false;
+    }
+  });
+
+  // 4. Add protection wrapper div over videos when played (extra protection)
+  allVideos.forEach(video => {
+    if (!video.hasAttribute('controls')) {
+      // For videos without controls, add overlay protection
+      const parent = video.parentElement;
+      
+      // Create protection overlay that still allows clicking to play/pause
+      video.addEventListener('play', function() {
+        if (!parent.querySelector('.video-protection-overlay')) {
+          const overlay = document.createElement('div');
+          overlay.className = 'video-protection-overlay';
+          overlay.addEventListener('click', function() {
+            if (video.paused) {
+              video.play();
+            } else {
+              video.pause();
+            }
+          });
+          parent.appendChild(overlay);
+        }
+      });
     }
   });
 } 
