@@ -6,9 +6,14 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <meta name="description" content="Portfolio of RAN - Showcasing creative works in design and visual arts" />
   <meta name="robots" content="noindex, nofollow" />
-  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; img-src 'self' data: https:; media-src 'self' https:; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src https://fonts.gstatic.com; frame-ancestors 'none';" />
+  <!-- CSP is now provided via HTTP headers instead of meta tag
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; img-src 'self' data: https:; media-src 'self' https:; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src https://fonts.gstatic.com" />
+  -->
   <title>林小然 RAN | Portfolio</title>
   <link rel="stylesheet" href="css/style.css" />
+  <!-- Preload critical scripts -->
+  <link rel="preload" href="js/projects.js" as="script">
+  <link rel="preload" href="js/script.js" as="script">
 </head>
 
 <body>
@@ -32,134 +37,7 @@
       <section class="page__portfolio portfolio">
         <div class="portfolio__container">
           <div class="portfolio__grid">
-            <div class="portfolio__item">
-              <a href="project/detail/good-domain.html">
-                <img src="img/portfolio/portfolio-1.jpg" alt="良域产品视觉" loading="lazy">
-                <div class="portfolio__overlay">
-                  <h3 class="portfolio__title">良域产品视觉</h3>
-                </div>
-              </a>
-            </div>
-            <div class="portfolio__item">
-              <a href="project/detail/one-point.html">
-                <img src="img/portfolio/portfolio-2.jpg" alt="一点万象产品视觉" loading="lazy">
-                <div class="portfolio__overlay">
-                  <h3 class="portfolio__title">一点万象产品视觉</h3>
-                </div>
-              </a>
-            </div>
-            <div class="portfolio__item">
-              <a href="project/detail/cloud-node.html">
-                <img src="img/portfolio/portfolio-3.jpg" alt="云结产品视觉" loading="lazy">
-                <div class="portfolio__overlay">
-                  <h3 class="portfolio__title">云结产品视觉</h3>
-                </div>
-              </a>
-            </div>
-            <div class="portfolio__item">
-              <a href="project/detail/e-space.html">
-                <img src="img/portfolio/portfolio-4.jpg" alt="e-space 官网视觉">
-                <div class="portfolio__overlay">
-                  <h3 class="portfolio__title">e-space 官网视觉</h3>
-                </div>
-              </a>
-            </div>
-            <div class="portfolio__item">
-              <a href="project/detail/one-point-marketing.html">
-                <img src="img/portfolio/portfolio-5.jpg" alt="一点万象 商业营销设计" loading="lazy">
-                <div class="portfolio__overlay">
-                  <h3 class="portfolio__title">一点万象 商业营销设计</h3>
-                </div>
-              </a>
-            </div>
-            <div class="portfolio__item">
-              <a href="project/detail/zhaox-product.html" class="portfolio__link">
-                <img src="img/portfolio/portfolio-6.jpg" alt="朝昔 产品视觉" loading="lazy">
-                <div class="portfolio__overlay">
-                  <h3 class="portfolio__title">朝昔 产品视觉</h3>
-                </div>
-              </a>
-            </div>
-            <div class="portfolio__item">
-              <a href="project/detail/wandering-2023.html" class="portfolio__link">
-                <img src="img/portfolio/portfolio-7.jpg" alt="万象漫游记2023 年度账单" loading="lazy">
-                <div class="portfolio__overlay">
-                  <h3 class="portfolio__title">万象漫游记2023 年度账单</h3>
-                </div>
-              </a>
-            </div>
-            <div class="portfolio__item">
-              <a href="project/detail/mixc-life.html">
-                <img src="img/portfolio/portfolio-8.jpg" alt="万象生活 商业对外视觉" loading="lazy">
-                <div class="portfolio__overlay">
-                  <h3 class="portfolio__title">万象生活 商业对外视觉</h3>
-                </div>
-              </a>
-            </div>
-            <div class="portfolio__item">
-              <a href="project/detail/zhaox-property.html">
-                <img src="img/portfolio/portfolio-9.webp" alt="朝昔 物业营销设计" loading="lazy">
-                <div class="portfolio__overlay">
-                  <h3 class="portfolio__title">朝昔 物业营销设计</h3>
-                </div>
-              </a>
-            </div>
-            <div class="portfolio__item">
-              <a href="project/detail/cr-mixc.html">
-                <img src="img/portfolio/portfolio-10.webp" alt="CR MIXC LIFESTYLE 主视觉" loading="lazy">
-                <div class="portfolio__overlay">
-                  <h3 class="portfolio__title">CR MIXC LIFESTYLE 主视觉</h3>
-                </div>
-              </a>
-            </div>
-            <div class="portfolio__item">
-              <a href="project/detail/zhaox-solar.html">
-                <img src="img/portfolio/portfolio-11.jpg" alt="Zhaox Solar Terms Visual" loading="lazy">
-                <div class="portfolio__overlay">
-                  <h3 class="portfolio__title">朝昔 节气视觉</h3>
-                </div>
-              </a>
-            </div>
-            <div class="portfolio__item">
-              <a href="project/detail/hello-zhaox.html">
-                <img src="img/portfolio/portfolio-12.jpg" alt="Hello Zhaox National Campaign" loading="lazy">
-                <div class="portfolio__overlay">
-                  <h3 class="portfolio__title">你好朝昔 全国推广</h3>
-                </div>
-              </a>
-            </div>
-            <div class="portfolio__item">
-              <a href="project/detail/memory-2022.html">
-                <img src="img/portfolio/portfolio-13.jpg" alt="Your MIXC Memory 2022" loading="lazy">
-                <div class="portfolio__overlay">
-                  <h3 class="portfolio__title">你的万象记忆 2022</h3>
-                </div>
-              </a>
-            </div>
-            <div class="portfolio__item">
-              <a href="project/detail/one-point-7th.html">
-                <img src="img/portfolio/portfolio-14.jpg" alt="One Point 7th Anniversary" loading="lazy">
-                <div class="portfolio__overlay">
-                  <h3 class="portfolio__title">一点万象 7周年</h3>
-                </div>
-              </a>
-            </div>
-            <div class="portfolio__item">
-              <a href="project/detail/icon-design.html">
-                <img src="img/portfolio/portfolio-15.jpg" alt="Icon and Emotional Design" loading="lazy">
-                <div class="portfolio__overlay">
-                  <h3 class="portfolio__title">ICON 及情感化设计</h3>
-                </div>
-              </a>
-            </div>
-            <div class="portfolio__item">
-              <a href="project/detail/edu-course.html">
-                <img src="img/portfolio/portfolio-16.jpg" alt="Education Product Course Design" loading="lazy">
-                <div class="portfolio__overlay">
-                  <h3 class="portfolio__title">教育产品 课程设计</h3>
-                </div>
-              </a>
-            </div>
+            <!-- Projects will be dynamically loaded from projects.js -->
           </div>
         </div>
       </section>
@@ -175,6 +53,8 @@
       </div>
     </footer>
   </div>
+  <!-- Load projects.js first, then script.js which depends on it -->
+  <script src="js/projects.js"></script>
   <script src="js/script.js"></script>
 </body>
 
