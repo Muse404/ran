@@ -1,0 +1,234 @@
+<!-- Add script for slider navigation buttons -->
+<script>
+  document.addEventListener('DOMContentLoaded', function() {
+    const relatedSlider = document.querySelector('.related-projects__slider');
+    const prevButton = document.querySelector('.related-projects__button--prev');
+    const nextButton = document.querySelector('.related-projects__button--next');
+    
+    if (relatedSlider && prevButton && nextButton) {
+      // Scroll to the current project initially with offset to show next items
+      const currentProject = relatedSlider.querySelector('.related-projects__item--current');
+      if (currentProject) {
+        // Calculate scroll position based on screen size
+        const isMobile = window.innerWidth <= 576;
+        const sliderWidth = relatedSlider.offsetWidth;
+        const currentProjectWidth = currentProject.offsetWidth;
+        const currentProjectLeft = currentProject.offsetLeft;
+        
+        // On mobile: position current project on the left side to show part of next item
+        if (isMobile) {
+          // Leave a bit of the next project visible (showing about 25% of next item)
+          relatedSlider.scrollLeft = currentProjectLeft - (sliderWidth * 0.1);
+        } else {
+          // On desktop: center the current project
+          relatedSlider.scrollLeft = currentProjectLeft - (sliderWidth / 2) + (currentProjectWidth / 2);
+        }
+      }
+      
+      // Update button visibility based on scroll position
+      function updateButtonVisibility() {
+        const scrollLeft = relatedSlider.scrollLeft;
+        const scrollWidth = relatedSlider.scrollWidth;
+        const clientWidth = relatedSlider.clientWidth;
+        const maxScroll = scrollWidth - clientWidth;
+        
+        // If slider is at the leftmost position, disable left button
+        if (scrollLeft <= 10) {
+          prevButton.classList.add('related-projects__button--disabled');
+          prevButton.disabled = true;
+        } else {
+          prevButton.classList.remove('related-projects__button--disabled');
+          prevButton.disabled = false;
+        }
+        
+        // If slider is at the rightmost position, disable right button
+        if (scrollLeft >= maxScroll - 10) {
+          nextButton.classList.add('related-projects__button--disabled');
+          nextButton.disabled = true;
+        } else {
+          nextButton.classList.remove('related-projects__button--disabled');
+          nextButton.disabled = false;
+        }
+      }
+      
+      // Initial button state update
+      updateButtonVisibility();
+      
+      // Find the next item to scroll to based on scroll direction
+      const findNextItem = (direction) => {
+        const items = Array.from(relatedSlider.querySelectorAll('.related-projects__item'));
+        const sliderRect = relatedSlider.getBoundingClientRect();
+        const isMobile = window.innerWidth <= 576;
+        
+        // Different strategy for mobile vs. desktop
+        if (isMobile) {
+          // On mobile, we want to scroll one full item at a time
+          // Find the first fully visible item
+          let firstVisibleItem = null;
+          let nextVisibleItem = null;
+          
+          for (const item of items) {
+            const itemRect = item.getBoundingClientRect();
+            // Check if item is at least partially visible
+            if (itemRect.left < sliderRect.right && itemRect.right > sliderRect.left) {
+              if (!firstVisibleItem) {
+                firstVisibleItem = item;
+              } else if (!nextVisibleItem) {
+                nextVisibleItem = item;
+                break;
+              }
+            }
+          }
+          
+          // If going right, choose the next item or item after next visible
+          if (direction === 'right') {
+            const index = items.indexOf(nextVisibleItem || firstVisibleItem);
+            const targetIndex = Math.min(index + 1, items.length - 1);
+            return items[targetIndex];
+          } else {
+            // If going left, choose the previous item
+            const index = items.indexOf(firstVisibleItem);
+            const targetIndex = Math.max(0, index - 1);
+            return items[targetIndex];
+          }
+        } else {
+          // Desktop behavior: center the next item
+          const sliderCenter = sliderRect.left + sliderRect.width / 2;
+          
+          // Find the currently centered item
+          let currentCenteredItem = null;
+          let currentMinDistance = Infinity;
+          
+          for (const item of items) {
+            const itemRect = item.getBoundingClientRect();
+            const itemCenter = itemRect.left + itemRect.width / 2;
+            const distance = Math.abs(itemCenter - sliderCenter);
+            
+            if (distance < currentMinDistance) {
+              currentMinDistance = distance;
+              currentCenteredItem = item;
+            }
+          }
+          
+          // Find the current item's index
+          const currentIndex = currentCenteredItem ? items.indexOf(currentCenteredItem) : -1;
+          
+          if (currentIndex === -1) {
+            // Fallback to first/last item
+            return direction === 'right' ? items[0] : items[items.length - 1];
+          }
+          
+          if (direction === 'right') {
+            // Get next item, but handle edge case
+            const nextIndex = Math.min(currentIndex + 1, items.length - 1);
+            return items[nextIndex];
+          } else {
+            // Get previous item, but handle edge case
+            const prevIndex = Math.max(currentIndex - 1, 0);
+            return items[prevIndex];
+          }
+        }
+      };
+      
+      // Handle prev button click
+      prevButton.addEventListener('click', function() {
+        const prevItem = findNextItem('left');
+        if (prevItem) {
+          // For mobile, we want the item to be on the left with a piece of next item visible
+          if (window.innerWidth <= 576) {
+            prevItem.scrollIntoView({
+              behavior: 'smooth',
+              block: 'nearest',
+              inline: 'start'
+            });
+          } else {
+            // For desktop, center the item
+            prevItem.scrollIntoView({
+              behavior: 'smooth',
+              block: 'nearest',
+              inline: 'center'
+            });
+          }
+          
+          // Update button states after scrolling
+          setTimeout(updateButtonVisibility, 500);
+        }
+      });
+      
+      // Handle next button click
+      nextButton.addEventListener('click', function() {
+        const nextItem = findNextItem('right');
+        if (nextItem) {
+          // For mobile, we want the item to be on the left with a piece of next item visible
+          if (window.innerWidth <= 576) {
+            nextItem.scrollIntoView({
+              behavior: 'smooth',
+              block: 'nearest',
+              inline: 'start'
+            });
+          } else {
+            // For desktop, center the item
+            nextItem.scrollIntoView({
+              behavior: 'smooth',
+              block: 'nearest',
+              inline: 'center'
+            });
+          }
+          
+          // Update button states after scrolling
+          setTimeout(updateButtonVisibility, 500);
+        }
+      });
+      
+      // Update button states when scrolling manually
+      relatedSlider.addEventListener('scroll', function() {
+        updateButtonVisibility();
+      });
+
+      // Handle window resize to adjust current item positioning
+      window.addEventListener('resize', function() {
+        // Recalculate scroll position when screen size changes
+        const currentProject = relatedSlider.querySelector('.related-projects__item--current');
+        if (currentProject) {
+          const isMobile = window.innerWidth <= 576;
+          const sliderWidth = relatedSlider.offsetWidth;
+          const currentProjectWidth = currentProject.offsetWidth;
+          const currentProjectLeft = currentProject.offsetLeft;
+          
+          // Adjust scroll position based on device size
+          if (isMobile) {
+            relatedSlider.scrollLeft = currentProjectLeft - (sliderWidth * 0.1);
+          } else {
+            relatedSlider.scrollLeft = currentProjectLeft - (sliderWidth / 2) + (currentProjectWidth / 2);
+          }
+        }
+        updateButtonVisibility();
+      });
+    }
+    
+    // Apply media protection to all images
+    const allImages = document.querySelectorAll('.related-projects__image');
+    allImages.forEach(img => {
+      // Prevent dragging
+      img.setAttribute('draggable', 'false');
+      // Add protect class for CSS if not already there
+      if (!img.classList.contains('protected-media')) {
+        img.classList.add('protected-media');
+      }
+      // Disable saving image
+      img.addEventListener('mousedown', function(e) {
+        if (e.button === 2) { // Right click
+          e.preventDefault();
+        }
+      });
+    });
+    
+    // Prevent context menu on images
+    document.addEventListener('contextmenu', function(e) {
+      if (e.target.tagName === 'IMG' || e.target.tagName === 'VIDEO') {
+        e.preventDefault();
+        return false;
+      }
+    });
+  });
+</script> 
