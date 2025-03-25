@@ -265,16 +265,38 @@ function applyMediaProtection() {
   });
 
   // 4. Add protection wrapper div over videos when played (extra protection)
+<<<<<<< HEAD
+  allVideos.forEach((video, videoIndex) => {
+=======
   allVideos.forEach(video => {
+>>>>>>> a443efe14548d2b88197207b758a281b62198a19
     if (!video.hasAttribute('controls')) {
       // For videos without controls, add overlay protection
       const parent = video.parentElement;
       
+<<<<<<< HEAD
+      // Skip if already processed
+      if (video.dataset.protectionApplied === 'true') return;
+      
+      // Mark this video as processed
+      video.dataset.protectionApplied = 'true';
+      video.dataset.videoIndex = videoIndex;
+      
+      // Create protection overlay that still allows clicking to play/pause
+      video.addEventListener('play', function() {
+        // Ensure we don't create duplicate overlays
+        if (!parent.querySelector(`.video-protection-overlay[data-video-index="${videoIndex}"]`)) {
+          const overlay = document.createElement('div');
+          overlay.className = 'video-protection-overlay';
+          overlay.dataset.videoIndex = videoIndex;
+          
+=======
       // Create protection overlay that still allows clicking to play/pause
       video.addEventListener('play', function() {
         if (!parent.querySelector('.video-protection-overlay')) {
           const overlay = document.createElement('div');
           overlay.className = 'video-protection-overlay';
+>>>>>>> a443efe14548d2b88197207b758a281b62198a19
           overlay.addEventListener('click', function() {
             if (video.paused) {
               video.play();
@@ -303,17 +325,37 @@ function addCustomVideoPlayButton() {
   
   const videoContainers = document.querySelectorAll('.project-detail__video');
   
+<<<<<<< HEAD
+  videoContainers.forEach((container, index) => {
+    const video = container.querySelector('video');
+    if (!video) return;
+    
+    // Skip if this container already has custom controls or has been processed
+    if (container.querySelector('.video-custom-controls') || video.dataset.hasCustomControls === 'true') return;
+    
+    // Mark this video as processed to avoid duplicate event listeners
+    video.dataset.hasCustomControls = 'true';
+    
+=======
   videoContainers.forEach(container => {
     const video = container.querySelector('video');
     if (!video) return;
     
+>>>>>>> a443efe14548d2b88197207b758a281b62198a19
     // Create custom controls container
     const customControls = document.createElement('div');
     customControls.className = 'video-custom-controls';
     
+<<<<<<< HEAD
+    // Create play button with unique data attribute for tracking
+    const playButton = document.createElement('div');
+    playButton.className = 'video-play-button';
+    playButton.dataset.videoIndex = index; // Add data attribute to ensure uniqueness
+=======
     // Create play button
     const playButton = document.createElement('div');
     playButton.className = 'video-play-button';
+>>>>>>> a443efe14548d2b88197207b758a281b62198a19
     playButton.innerHTML = `
       <svg width="28" height="28" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
         <path d="M8 5.5V18.5L19 12L8 5.5Z" fill="#3B3B3B" stroke="#3B3B3B" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
@@ -335,20 +377,39 @@ function addCustomVideoPlayButton() {
       }
     });
     
+<<<<<<< HEAD
+    // Define named event handler functions so they can be referenced
+    function handleVideoPlay() {
+=======
     // Handle video play/pause to sync custom button state
     video.addEventListener('play', function() {
+>>>>>>> a443efe14548d2b88197207b758a281b62198a19
       playButton.style.opacity = '0';
       setTimeout(() => {
         playButton.style.display = 'none';
       }, 300);
+<<<<<<< HEAD
+    }
+    
+    function handleVideoPause() {
+=======
     });
     
     video.addEventListener('pause', function() {
+>>>>>>> a443efe14548d2b88197207b758a281b62198a19
       playButton.style.display = 'flex';
       setTimeout(() => {
         playButton.style.opacity = '1';
       }, 10);
+<<<<<<< HEAD
+    }
+    
+    // Handle video play/pause to sync custom button state
+    video.addEventListener('play', handleVideoPlay);
+    video.addEventListener('pause', handleVideoPause);
+=======
     });
+>>>>>>> a443efe14548d2b88197207b758a281b62198a19
     
     // Add to DOM
     customControls.appendChild(playButton);
